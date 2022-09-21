@@ -32,6 +32,50 @@
         });
     }
 
+    public async GetPatients(): Promise<string> {
+        const headers = this.SetDefaultHeaders();
+        const authorizeEndpoint = '/api/Core/GetPatients';
+        return new Promise<string>((resolve, reject) => {
+            const xhr: XMLHttpRequest = new XMLHttpRequest();
+            xhr.withCredentials = false; // add Authorize in header
+            xhr.onload = async () => {
+                //window.location.href = xhr.responseURL;
+                console.log(xhr.responseText);
+                resolve(this.CreateResponse(xhr))
+
+            };
+            xhr.open('GET', authorizeEndpoint, true);
+            for (let i: number = 0; i < headers.length; i++) {
+                const header: [string, string] = headers[i];
+                xhr.setRequestHeader(header[0], this.EnsureASCII(header[1]));
+            }
+            //xhr.send(JSON.stringify(request));
+            xhr.send(null);
+        });
+    }
+
+    public async SaveAppointment(appointment: any): Promise<string> {
+        const headers = this.SetJsonHeaders();
+        const authorizeEndpoint = '/api/Core/SaveAppointment';
+        return new Promise<string>((resolve, reject) => {
+            const xhr: XMLHttpRequest = new XMLHttpRequest();
+            xhr.withCredentials = false; // add Authorize in header
+            xhr.onload = async () => {
+                //window.location.href = xhr.responseURL;
+                console.log(xhr.responseText);
+                resolve(this.CreateResponse(xhr))
+
+            };
+            xhr.open('POST', authorizeEndpoint, true);
+            for (let i: number = 0; i < headers.length; i++) {
+                const header: [string, string] = headers[i];
+                xhr.setRequestHeader(header[0], this.EnsureASCII(header[1]));
+            }
+            xhr.send(JSON.stringify(appointment));
+            //xhr.send(null);
+        });
+    }
+
     private CreateResponse(xhr: XMLHttpRequest): string {
         return xhr.responseText;
     }
@@ -65,6 +109,12 @@
     private SetDefaultHeaders(): [string, string][] {
         const headers: [string, string][] = [];
         headers.push(['Content-Type', 'application/x-www-form-urlencoded']); // together withCredentials do not as for CORS
+        return headers;
+    }
+
+    private SetJsonHeaders(): [string, string][] {
+        const headers: [string, string][] = [];
+        headers.push(['Content-Type', 'application/json']); // together withCredentials do not as for CORS
         return headers;
     }
 

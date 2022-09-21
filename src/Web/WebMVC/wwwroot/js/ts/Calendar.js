@@ -41,6 +41,46 @@ class Calendar {
             });
         });
     }
+    GetPatients() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const headers = this.SetDefaultHeaders();
+            const authorizeEndpoint = '/api/Core/GetPatients';
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.onload = () => __awaiter(this, void 0, void 0, function* () {
+                    console.log(xhr.responseText);
+                    resolve(this.CreateResponse(xhr));
+                });
+                xhr.open('GET', authorizeEndpoint, true);
+                for (let i = 0; i < headers.length; i++) {
+                    const header = headers[i];
+                    xhr.setRequestHeader(header[0], this.EnsureASCII(header[1]));
+                }
+                xhr.send(null);
+            });
+        });
+    }
+    SaveAppointment(appointment) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const headers = this.SetJsonHeaders();
+            const authorizeEndpoint = '/api/Core/SaveAppointment';
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.withCredentials = false;
+                xhr.onload = () => __awaiter(this, void 0, void 0, function* () {
+                    console.log(xhr.responseText);
+                    resolve(this.CreateResponse(xhr));
+                });
+                xhr.open('POST', authorizeEndpoint, true);
+                for (let i = 0; i < headers.length; i++) {
+                    const header = headers[i];
+                    xhr.setRequestHeader(header[0], this.EnsureASCII(header[1]));
+                }
+                xhr.send(JSON.stringify(appointment));
+            });
+        });
+    }
     CreateResponse(xhr) {
         return xhr.responseText;
     }
@@ -69,6 +109,11 @@ class Calendar {
     SetDefaultHeaders() {
         const headers = [];
         headers.push(['Content-Type', 'application/x-www-form-urlencoded']);
+        return headers;
+    }
+    SetJsonHeaders() {
+        const headers = [];
+        headers.push(['Content-Type', 'application/json']);
         return headers;
     }
     EnsureASCII(data) {
