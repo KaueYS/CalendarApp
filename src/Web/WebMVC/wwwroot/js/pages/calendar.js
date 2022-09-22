@@ -1,16 +1,5 @@
-/* ============================================================
- * Calendar
- * This is a Demo App that was created using Pages Calendar Plugin
- * We have demonstrated a few function that are useful in creating
- * a custom calendar. Please refer docs for more information
- * ============================================================ */
-async function getEvents() {
-    const calendar = new Calendar();
-    calendar.Passed();
-    const eventsJson = await calendar.GetEvents();
-    const events = calendar.Deserialize(eventsJson);
-    //console.log(events);
-
+const getEvents = async () => {
+    const events = await application.Calendar.GetEvents();
     var selectedEvent;
     $('#myCalendar').pagescalendar({
         //Loading Dummy EVENTS for demo Purposes, you can feed the events attribute from 
@@ -59,10 +48,7 @@ async function getEvents() {
         }
     });
 }
-
-
-
-(function($) {
+(function ($) {
 
     'use strict';
 
@@ -109,30 +95,28 @@ async function getEvents() {
                     //You can have your custom list of attributes here
                     note: 'test'
                 }
-            }, ],
-            view:"week",
-            onViewRenderComplete: function() {
+            },],
+            view: "week",
+            onViewRenderComplete: function () {
                 //You can Do a Simple AJAX here and update 
             },
-            onEventClick: function(event) {
+            onEventClick: function (event) {
                 //Open Pages Custom Quick View
                 if (!$('#calendar-event').hasClass('open'))
                     $('#calendar-event').addClass('open');
-
-
                 selectedEvent = event;
                 setEventDetailsToForm(selectedEvent);
             },
-            onEventDragComplete: function(event) {
+            onEventDragComplete: function (event) {
                 selectedEvent = event;
                 setEventDetailsToForm(selectedEvent);
 
             },
-            onEventResizeComplete: function(event) {
+            onEventResizeComplete: function (event) {
                 selectedEvent = event;
                 setEventDetailsToForm(selectedEvent);
             },
-            onTimeSlotDblClick: function(timeSlot) {
+            onTimeSlotDblClick: function (timeSlot) {
                 $('#calendar-event').removeClass('open');
                 //Adding a new Event on Slot Double Click
                 var newEvent = {
@@ -175,7 +159,7 @@ async function getEvents() {
             $('#txtEventLocation').val(event.other.location);
         }
 
-        $('#eventSave').on('click', function() {
+        $('#eventSave').on('click', function () {
             selectedEvent.title = $('#txtEventName').val();
 
             //You can add Any thing inside "other" object and it will get save inside the plugin.
@@ -184,12 +168,12 @@ async function getEvents() {
             selectedEvent.other.code = $('#txtEventCode').val();
             selectedEvent.other.location = $('#txtEventLocation').val();
 
-            $('#myCalendar').pagescalendar('updateEvent',selectedEvent);
+            $('#myCalendar').pagescalendar('updateEvent', selectedEvent);
 
             $('#calendar-event').removeClass('open');
         });
 
-        $('#eventDelete').on('click', function() {
+        $('#eventDelete').on('click', function () {
             $('#myCalendar').pagescalendar('removeEvent', $('#eventIndex').val());
             $('#calendar-event').removeClass('open');
         });

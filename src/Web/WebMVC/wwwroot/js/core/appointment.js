@@ -1,15 +1,12 @@
-﻿(function ($) {
+﻿const application = new Application();
+const getPatients = async () => {
+    const patients = await application.Patient.GetPatients();
 
-    async function getPatients() {
-        const calendar = new Calendar();
-        //calendar.Passed();
-        const patientsJson = await calendar.GetPatients();
-        const patients = calendar.Deserialize(patientsJson);
-        //console.log(events);
-        $('#modalAppointmentRegisterPatient').select2({
-            data: patients
-        });
-    }
+    $('#modalAppointmentRegisterPatient').select2({
+        data: patients
+    });
+}
+(function ($) {
     function initSelect2() {
         $('#modalAppointmentRegisterPatient, #modalAppointmentRegisterHour').select2({
             dropdownParent: $('#modalAppointmentRegisterPartial')
@@ -32,17 +29,12 @@
             language: 'pt-BR'
         });
     }
-
-
     function initSave() {
         $('#modalAppointmentRegisterSave').on('click', function (e) {
             save();
             closeModal();
         });
-    }// evento click
-
-
-
+    }
     function initTypes() {
         //$('#modalAppointmentRegisterType')[0];
 
@@ -57,11 +49,8 @@
             divTypes.innerHTML += html;
         }
     }
-
-
     'use strict';
     const calendar = new Calendar();
-
     $(document).ready(function () {
         initMenuAppointment();
         initSelect2();

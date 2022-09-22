@@ -7,16 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-class Calendar {
+class Patient {
     constructor(application) {
         this._application = application;
     }
-    GetEvents() {
+    GetPatients() {
         return __awaiter(this, void 0, void 0, function* () {
-            const body = yield this._application.Server.Get('/api/Calendar/GetEvents');
-            const events = this._application.Server.Deserialize(body);
-            return events;
+            const body = yield this._application.Server.Get('/api/Core/GetPatients');
+            const patients = this._application.Server.Deserialize(body);
+            return patients;
         });
     }
 }
-//# sourceMappingURL=Calendar.js.map
+//# sourceMappingURL=Patient.js.map
