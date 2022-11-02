@@ -5,6 +5,6 @@ namespace WebMVC.Contract
 {
     public interface ISecurityUserService
     {
-        Task<UserVO> Get(UserGetDTQ userGetQuery);
+        Task<AnswerDTO<UserVO>> Get(UserGetDTQ userGetQuery);
     }
 }

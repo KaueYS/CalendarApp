@@ -29,13 +29,26 @@ namespace WebMVC.Controllers
 
         public async Task<ActionResult> Login(IdentityLoginUserViewModel identityLoginUserViewModel)
         {
-            UserVO user = await this._securityUserService.Get(new UserGetDTQ { Email = identityLoginUserViewModel.Email});
+            AnswerDTO<UserVO> answerUser = await this._securityUserService.Get(new UserGetDTQ { Email = identityLoginUserViewModel.Email });
+            if (!string.IsNullOrEmpty(answerUser.Message))
+            {
+                ModelState.AddModelError(string.Empty, answerUser.Message);
+                return View("Index", identityLoginUserViewModel);
+                
+            }
+            if (answerUser.Data == null)
+            {
+                ModelState.AddModelError(string.Empty, "Usuario ou senha invalido");
+                return View("Index", identityLoginUserViewModel);
+            }
+            UserVO user = answerUser.Data;
+
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal();
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Email));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
-           
+
             foreach (RoleVO role in user.Roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role.Description));
@@ -45,7 +58,7 @@ namespace WebMVC.Controllers
             claimsPrincipal.AddIdentity(identity);
             AuthenticationProperties authenticationProperties = new AuthenticationProperties() { IsPersistent = false, ExpiresUtc = DateTimeOffset.MaxValue };
             await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
-            
+
             return RedirectToAction("Dashboard", "Home");
         }
     }

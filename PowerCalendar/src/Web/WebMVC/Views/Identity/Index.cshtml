@@ -57,6 +57,8 @@
                      data-src-retina="assets/img/logo-48x48_c@2x.png" width="48" height="48">
                 <h2 class="p-t-25">Get Started <br /> with your Dashboard</h2>
                 <p class="mw-80 m-t-5">Acesso</p>
+                
+                @Html.ValidationSummary(false)
                 <form id="form-login" class="p-t-15" role="form" method="post" asp-controller="Identity" asp-action="Login">
                     <div class="form-group form-group-default">
                         <label>E-mail</label>

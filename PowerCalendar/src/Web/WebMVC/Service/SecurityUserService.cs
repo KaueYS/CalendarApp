@@ -8,24 +8,20 @@ using WebMVC.DTO;
 
 namespace WebMVC.Service
 {
+    
     public class SecurityUserService : ISecurityUserService
     {
+        private readonly ISecurityRoleService _securityRoleService;
         private readonly IRepository _repository;
 
-        public SecurityUserService(IRepository repository)
+        public SecurityUserService(IRepository repository, ISecurityRoleService securityRoleService)
         {
             _repository = repository;
+            _securityRoleService = securityRoleService;
         }
 
         private const string SQL_SELECT_T_USER_BY_EMAIL = "SELECT codUser, dscName, dscEmail, dscPassword, dscPhone, flgStatus, datRegister FROM T_USER WHERE dscEmail = @dscEmail";
-        private const string SQL_SELECT_TUSER_ROLE_BY_CODUSER = @"SELECT R.codRole, R.dscRole FROM T_USER U
-            Inner join T_USER_ROLE UR on UR.codUser = U.codUser
-            Inner join T_ROLE R on UR.codRole = R.codRole
-            WHERE U.codUser = @codUser";
-        private void AddParameterCodUser(List<IDbDataParameter> parameters, long codUser)
-        {
-            parameters.Add(this._repository.CreateParameter(PARAM_codUser, DbType.Int64, codUser));
-        }
+        
         private const string PARAM_codUser = "@codUser";
         private const string PARAM_dscEmail = "@dscEmail";
         private void AddParameterEmail(List<IDbDataParameter> parameters, string email)
@@ -33,7 +29,7 @@ namespace WebMVC.Service
             parameters.Add(this._repository.CreateParameter(PARAM_dscEmail, DbType.String, email));
         }
 
-        public async Task<UserVO> Get(UserGetDTQ userGetQuery)
+        public async Task<AnswerDTO<UserVO>> Get(UserGetDTQ userGetQuery)
         {
             try
             {
@@ -49,45 +45,18 @@ namespace WebMVC.Service
                         if (reader.Read())
                         {
                             user = this.Create(reader);
-                            user.Roles = await this.GetRoles(user.Code);
+                            user.Roles = await this._securityRoleService.GetRoles(user.Code);
                         }
                     }
                 }
-                return user;
+                return new AnswerDTO<UserVO>(user);
             }
             catch (Exception e)
             {
-                return null;
+                return new AnswerDTO<UserVO>(null, "Nao foi possivel acessar usuario");
             }
         }
-        private async Task<List<RoleVO>> GetRoles(long codUser)
-        {
-            try
-            {
-                List<IDbDataParameter> parameters = new List<IDbDataParameter>();
-                this.AddParameterCodUser(parameters, codUser);
-
-                RoleVO? role = null;
-                List<RoleVO> roles = new List<RoleVO>();
-                using (IDbConnection connection = _repository.CreateConnection())
-                {
-                    connection.Open();
-                    using (IDataReader reader = await _repository.GetReader(SQL_SELECT_TUSER_ROLE_BY_CODUSER, parameters))
-                    {
-                        while (reader.Read()) 
-                        {
-                            role = this.CreateRole(reader);
-                            roles.Add(role);
-                        }   
-                    }
-                }
-                return roles;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
+        
 
         private UserVO Create(IDataReader reader)
         {
@@ -111,12 +80,6 @@ namespace WebMVC.Service
             user.Register = reader.GetDateTime(6);
             return user;
         }
-        private RoleVO CreateRole(IDataReader reader)
-        {
-            RoleVO role = new RoleVO();
-            role.Code = reader.GetInt32(0);
-            role.Description = reader.GetString(1);
-            return role;
-        }
+        
     }
 }

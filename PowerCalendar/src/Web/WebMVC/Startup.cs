@@ -33,6 +33,7 @@ namespace WebMVC
             services.AddScoped<IRepository, RepositorySqlServer>();
             //services.AddScoped<ITransactionScope, TransactionScopeSqlServer>();
             services.AddScoped<ISecurityUserService, SecurityUserService>();
+            services.AddScoped<ISecurityRoleService, SecurityRoleService>();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
