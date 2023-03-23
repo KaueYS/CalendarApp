@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ImoveisCompativeisViewModel>
+
+<table>
+    <thead>
+        <tr>
+            <th>Cliente comprador</th>
+            <th>Nome do imóvel</th>
+            <th>Cliente oferta</th>
+            <th>Proprietário</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>@item.Cliente</td>
+                    <td>@item.Imovel</td>
+                <td>@item.ClienteOferta</td>
+                    <td>@item.Proprietario</td>
+                </tr>
+        }
+    </tbody>
+</table>
