@@ -1,4 +1,5 @@
 ﻿using Blog.Data;
+using Blog.Extensions;
 using Blog.Models;
 using Blog.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace Blog.Controllers;
 [ApiController]
 public class CategoryController : ControllerBase
 {
+    //======GETALL==================
     [HttpGet("v1/categories")]
     public async Task<IActionResult> GetAsync(
         [FromServices] BlogDataContext context)
@@ -20,11 +22,11 @@ public class CategoryController : ControllerBase
         }
         catch
         {
-            return StatusCode(500, (new ResultViewModel<List<Category>>(" Falha interna")));
+            return StatusCode(500, (new ResultViewModel<List<Category>>(ErroDeServidor)));
         }
-
     }
 
+    //======GET ID==================
     [HttpGet("v1/categories/{id:int}")]
     public async Task<IActionResult> GetByIdAsync(
         [FromServices] BlogDataContext context,
@@ -33,17 +35,17 @@ public class CategoryController : ControllerBase
         try
         {
             var category = await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            if (category == null) return NotFound(new ResultViewModel<Category>("Nao ha categorias cadastradas"));
+            if (category == null) return NotFound(new ResultViewModel<Category>("ID Invalido ou nulo"));
 
             return Ok(new ResultViewModel<Category>(category));
         }
         catch
         {
-            return StatusCode(500, new ResultViewModel<Category>(" Falha no servidor"));
+            return StatusCode(500, new ResultViewModel<Category>(ErroDeServidor));
         }
-
     }
 
+    //======POST==================
     [HttpPost("v1/categories")]
     public async Task<IActionResult> PostAsync(
         [FromServices] BlogDataContext context,
@@ -51,7 +53,7 @@ public class CategoryController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest();
+            return BadRequest(new ResultViewModel<Category>(ModelState.GetErrors()));
         }
         try
         {
@@ -64,16 +66,15 @@ public class CategoryController : ControllerBase
 
             await context.AddAsync(category);
             await context.SaveChangesAsync();
-
-            return Created($"v1/categories/{category.Id}", category);
+            return Created($"v1/categories/{category.Id}", new ResultViewModel<Category>(category));
         }
         catch (Exception)
         {
-            return BadRequest("Nao cadastrado - revise ");
+            return StatusCode(500, new ResultViewModel<Category>(ErroDeServidor));
         }
-
     }
 
+    //======PUT==================
     [HttpPut("v1/categories/{id:int}")]
     public async Task<IActionResult> PutAsync(
         [FromServices] BlogDataContext context,
@@ -83,24 +84,22 @@ public class CategoryController : ControllerBase
         try
         {
             var category = await context.Categories.FirstOrDefaultAsync(z => z.Id == id);
-            if (category == null) return NotFound();
+            if (category == null) return NotFound(new ResultViewModel<Category>(category));
 
             category.Name = model.Name;
             category.Slug = model.Slug;
 
             context.Categories.Update(category);
             await context.SaveChangesAsync();
-
-
-            return Ok(category);
+            return Ok(new ResultViewModel<Category>(category));
         }
         catch (Exception)
         {
-            return BadRequest("revise os campos");
+            return StatusCode(500, new ResultViewModel<Category>(ErroDeServidor));
         }
-
     }
 
+    //======DELETE==================
     [HttpDelete("v1/categories/{id:int}")]
     public async Task<IActionResult> Delete(
         [FromRoute] int id,
@@ -110,7 +109,7 @@ public class CategoryController : ControllerBase
         {
             var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (category == null)
-                return NotFound(new ResultViewModel<Category>("Id Nao encontrado")) ;
+                return NotFound(new ResultViewModel<Category>("Id Nao encontrado"));
 
             context.Categories.Remove(category);
             await context.SaveChangesAsync();
@@ -118,11 +117,10 @@ public class CategoryController : ControllerBase
         }
         catch (Exception)
         {
-            return StatusCode(500, new ResultViewModel<Category>("Falha no servidor"));
+            return StatusCode(500, new ResultViewModel<Category>(ErroDeServidor));
         }
-
     }
-
-
+    //======MENSAGEM ERRO PADRAO==================
+    private const string ErroDeServidor = "Falha interna do servidor";
 
 }

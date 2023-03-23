@@ -2,6 +2,7 @@
 {
     public class ResultViewModel<T>
     {
+        private const string ErroDeServidor = "Falha interna do servidor";
         public ResultViewModel(T data, List<string> errors)
         {
             Data = data;

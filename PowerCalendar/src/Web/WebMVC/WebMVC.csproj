@@ -47,6 +47,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Infrastructure\Data\RepositoryContract\RepositoryContract.csproj" />
 	  <ProjectReference Include="..\..\Infrastructure\Data\RepositoryServiceSqlServer\RepositoryServiceSqlServer.csproj" />
+	  <ProjectReference Include="..\..\Infrastructure\Security\Infrastructure.Security\Infrastructure.Security.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

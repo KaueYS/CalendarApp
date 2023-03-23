@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeckCards", "DeckCards\DeckCards.csproj", "{B815322E-0B1A-438D-B9D8-7F7E3FC22200}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B815322E-0B1A-438D-B9D8-7F7E3FC22200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B815322E-0B1A-438D-B9D8-7F7E3FC22200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B815322E-0B1A-438D-B9D8-7F7E3FC22200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B815322E-0B1A-438D-B9D8-7F7E3FC22200}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE1F9170-C166-4B22-AEB5-762968B1DB9F}
+	EndGlobalSection
+EndGlobal

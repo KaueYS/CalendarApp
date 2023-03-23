@@ -5,6 +5,7 @@ using System;
 using WebMVC.Contract;
 using PowerCalendar.Infrastructure.Data.RepositoryContract;
 using WebMVC.DTO;
+using Infrastructure.Security;
 
 namespace WebMVC.Service
 {
@@ -37,6 +38,7 @@ namespace WebMVC.Service
                 this.AddParameterEmail(parameters, userGetQuery.Email);
 
                 UserVO? user = null;
+                
                 using (IDbConnection connection = _repository.CreateConnection())
                 {
                     connection.Open();
@@ -45,8 +47,14 @@ namespace WebMVC.Service
                         if (reader.Read())
                         {
                             user = this.Create(reader);
+                            bool isValid = SaltCryptography.VerifyPassword(userGetQuery.Password, user.Password);
+                            if (!isValid) 
+                            {
+                                return new AnswerDTO<UserVO>(null, "E-mail ou senha inválido");
+                            }
                             user.Roles = await this._securityRoleService.GetRoles(user.Code);
                         }
+                        
                     }
                 }
                 return new AnswerDTO<UserVO>(user);
@@ -64,6 +72,7 @@ namespace WebMVC.Service
             user.Code = reader.GetInt64(0);
             user.Name = reader.GetString(1);
             user.Email = reader.GetString(2);
+            user.Password = reader.GetString(3);
             user.Phone = reader.GetString(4);
             int status = reader.GetInt32(5);
             switch (status)

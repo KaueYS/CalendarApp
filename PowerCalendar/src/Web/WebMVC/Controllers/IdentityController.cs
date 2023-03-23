@@ -29,7 +29,12 @@ namespace WebMVC.Controllers
 
         public async Task<ActionResult> Login(IdentityLoginUserViewModel identityLoginUserViewModel)
         {
-            AnswerDTO<UserVO> answerUser = await this._securityUserService.Get(new UserGetDTQ { Email = identityLoginUserViewModel.Email });
+            UserGetDTQ userGet = new UserGetDTQ();
+            userGet.Email = identityLoginUserViewModel.Email;
+            userGet.Password = identityLoginUserViewModel.Password;
+            
+            AnswerDTO<UserVO> answerUser = await this._securityUserService.Get(userGet);
+
             if (!string.IsNullOrEmpty(answerUser.Message))
             {
                 ModelState.AddModelError(string.Empty, answerUser.Message);

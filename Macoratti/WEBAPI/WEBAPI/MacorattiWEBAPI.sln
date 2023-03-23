@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacorattiWEBAPI", "MacorattiWEBAPI\MacorattiWEBAPI.csproj", "{B3F940EA-F30B-43EB-B87B-CF234D4093A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3F940EA-F30B-43EB-B87B-CF234D4093A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F940EA-F30B-43EB-B87B-CF234D4093A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F940EA-F30B-43EB-B87B-CF234D4093A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F940EA-F30B-43EB-B87B-CF234D4093A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DE6B51C-4524-41B9-8570-A654714CCFF6}
+	EndGlobalSection
+EndGlobal

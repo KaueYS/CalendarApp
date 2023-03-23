@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Imobiliaria.DTO.ImovelOrigemDestino>
+
+<h3>Possíveis compradores para o imovel selecionado</h3>
+<hr />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeDoImovelVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeDoImovelCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClienteId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeDoImovelVenda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeDoImovelCompra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
