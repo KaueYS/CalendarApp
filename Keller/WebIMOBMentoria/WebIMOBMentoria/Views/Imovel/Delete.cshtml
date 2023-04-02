@@ -1,0 +1,46 @@
+﻿@model WebIMOBMentoria.Models.Imovel
+
+
+@{
+    ViewData["Title"] = "Deletar";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+ <h3>TEM CERTEZA QUE QUER DELETAR O IMOVEL??</h3>
+
+
+ <div>
+     <h4>
+         IMOVEL
+     </h4>
+     <hr />
+     <dl class="dl-horizontal">
+         <dt>
+             @Html.DisplayNameFor(model => model.ImovelNomeVenda)
+         </dt>
+         <dd>
+            @Html.DisplayFor(model => model.ImovelNomeVenda)
+         </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.ValorDoImovel)
+         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ValorDoImovel)
+         </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.ImovelNomeCompra)
+         </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ImovelNomeCompra)
+        </dd>
+     </dl>
+     <form asp-action="Delete">
+         <input type="hidden" asp-for="ImovelId" />
+         <input type="submit" value="Delete" class="btn btn-danger" />
+         <a asp-action="Index" >Voltar</a>
+     </form>
+
+
+
+ </div>
