@@ -10,7 +10,7 @@ namespace WebMVCImobiliaria.ViewModel
         
         public string Imovel { get; set; }
 
-        
+       
         public decimal ClienteOferta { get; set; }
 
         

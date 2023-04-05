@@ -1,11 +1,54 @@
 ﻿@model IEnumerable<ImoveisCompativeisViewModel>
 
-<table>
+
+
+    <table class="table">
     <thead>
         <tr>
-            <th>Cliente comprador</th>
-            <th>Nome do imóvel</th>
-            <th>Cliente oferta</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Imovel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteOferta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proprietario)
+            </th>
+            
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Imovel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClienteOferta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proprietario)
+            </td>
+                
+            
+        </tr>
+}
+    </tbody>
+</table>
+@*<table>
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Imóvel</th>
+            <th>Valor</th>
             <th>Proprietário</th>
         </tr>
     </thead>
@@ -20,4 +63,4 @@
                 </tr>
         }
     </tbody>
-</table>
+</table>*@

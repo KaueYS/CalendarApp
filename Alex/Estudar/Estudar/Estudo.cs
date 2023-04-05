@@ -63,8 +63,8 @@ namespace Estudar
 
                     if (minutosTotal >= minutosDeQuebra)
                     {
+                        videosAgrupados.Add(string.Empty);
                         videosAgrupados.Add(nomeVideo);
-
                         videosAgrupados.Add(string.Empty);
                         minutosTotal = 0;
                         continue;

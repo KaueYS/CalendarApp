@@ -159,9 +159,9 @@ public class ProcessarController : Controller
                         
                         clienteInteresseImovel.ClienteId = clienteEncontrado.Id;
                         clienteInteresseImovel.ImovelId = imovelEncontrado.Id;
-                        clienteInteresseImovel.ClienteOferta = decimal.Parse(colunas[11], new System.Globalization.CultureInfo("pt-BR"));
+                        clienteInteresseImovel.ClienteOferta = decimal.Parse(colunas[8], new System.Globalization.CultureInfo("pt-BR"));
 
-                        clienteInteresseImovel.ImovelDiferenca = imovel.Valor - clienteInteresseImovel.ClienteOferta;
+                        
 
                         _context.CLIENTEINTERESSEIMOVEIS.Add(clienteInteresseImovel);
                         _context.SaveChanges();

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebIMOBMentoria.ViewModel.EncontrarCompradoresViewModel>
+
+@{
+    ViewData["Title"] = "EncontrarCompradores";
+}
+
+<h1>EncontrarCompradores</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImovelNomeVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorDoImovel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImovelNomeCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImovelNomeVenda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorDoImovel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImovelNomeCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.ClienteId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ImovelId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ImovelId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ImovelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

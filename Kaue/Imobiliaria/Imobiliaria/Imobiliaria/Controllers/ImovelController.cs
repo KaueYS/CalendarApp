@@ -50,7 +50,7 @@ namespace Imobiliaria.Controllers
         // GET: Imovel/Create
         public IActionResult Create()
         {
-            ViewData["ClienteId"] = new SelectList(_context.CLIENTES, "ClienteId", "ClienteId");
+            ViewData["ClienteId"] = new SelectList(_context.CLIENTES, "ClienteId", "Name");
             return View();
         }
 
